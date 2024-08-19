@@ -1,4 +1,3 @@
-package dev.sp.emulators.c8mj;
 
 import java.io.File;
 import java.io.FileInputStream;
