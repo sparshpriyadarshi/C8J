@@ -1,1 +1,16 @@
-roms*
+resources/*.*
+
+resources/binaries/*
+!resources/binaries/c8splash.ch8
+
+resources/programs/*
+!resources/programs/c8splash.8o
+
+resources/utils/*
+
+*.class
+*.bat
+*.log
+*.jar
+*.war
+.vscode/*
