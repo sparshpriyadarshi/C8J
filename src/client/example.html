@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emulator</title>
+</head>
+
+<body>
+    <header>
+        <h1>Retro Emulator</h1>
+        <time id="current-datetime"></time>
+    </header>
+
+    <main>
+        <!-- Main emulator display and ROM upload section -->
+        <section>
+            <div>
+                <h2>Emulator Display</h2>
+                <canvas id="emulator-canvas" width="640" height="480"></canvas>
+            </div>
+
+            <!-- ROM file upload form -->
+            <div>
+                <h2>Load ROM</h2>
+                <form id="rom-upload-form">
+                    <label for="rom-file">
+                        Select ROM File
+                    </label>
+                    <input type="file" id="rom-file" name="rom-file" hidden accept=".nes,.gb,.sms">
+                    <span id="file-name">No file selected</span>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sidebar for controls and status panes -->
+        <aside>
+            <!-- Emulator controls section -->
+            <section>
+                <h2>Controls</h2>
+                <div>
+                    <button>Start</button>
+                    <button>Stop</button>
+                    <button>Reset</button>
+                </div>
+
+                <div>
+                    <label for="volume-slider">Volume</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50">
+                </div>
+
+                <h3>Numpad</h3>
+                <div>
+                    <!-- Numpad buttons -->
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>0</button>
+                </div>
+            </section>
+
+            <!-- Emulator state and log panes -->
+            <div>
+                <section>
+                    <h2>Emulator State</h2>
+                    <pre id="state-display">
+CPU Registers:
+  A: 0x00
+  X: 0x00
+  Y: 0x00
+  PC: 0xC000
+  SP: 0x01FF
+
+Hex View (0xC000):
+C000: EA EA EA EA EA EA EA EA
+C008: EA EA EA EA EA EA EA EA
+C010: EA EA EA EA EA EA EA EA
+</pre>
+                </section>
+
+                <section>
+                    <h2>App Log</h2>
+                    <pre id="app-log">
+[00:00:00] App initialized.
+[00:00:01] Waiting for ROM file...
+</pre>
+                </section>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        // Update the current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('current-datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Display the selected file name
+        document.getElementById('rom-file').addEventListener('change', (event) => {
+            const fileNameSpan = document.getElementById('file-name');
+            if (event.target.files.length > 0) {
+                fileNameSpan.textContent = event.target.files[0].name;
+            } else {
+                fileNameSpan.textContent = 'No file selected';
+            }
+        });
+    </script>
+</body>
+</html>
+

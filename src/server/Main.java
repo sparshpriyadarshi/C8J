@@ -2,12 +2,21 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+//import java.net.InetAddress;
+//import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HexFormat;
 import java.util.Stack;
 
+//import com.google.common.jimfs.Configuration;
+//import com.google.common.jimfs.Jimfs;
+//import com.sun.net.httpserver.HttpServer;
+//import com.sun.net.httpserver.SimpleFileServer;
+//import com.sun.net.httpserver.SimpleFileServer.OutputLevel;
+//import com.sun.net.httpserver.SimpleFileServer;
+//import com.sun.net.httpserver.HttpServer;
 /**
  * 
  * A CHIP-8 emulator
@@ -19,7 +28,7 @@ class Emulator {
     private static int PROGRAM_MEM_LAST_IDX = 3743;// 0xE9F
     private static int INSTRUCTION_WIDTH = 2; // 2 bytes
     // This welcome screen program is always loaded by default
-    public static String DEFAULT_PROGRAM_SRC_FILEPATH = "./resources/binaries/c8splash.ch8"; // TODO this path can be
+    public static String DEFAULT_PROGRAM_SRC_FILEPATH = "../../resources/binaries/c8splash.ch8"; // TODO this path can be
                                                                                              // done better
     public static HexFormat HEX_LINEAR_FORMATTER = HexFormat.ofDelimiter(":").withUpperCase().withPrefix("0x");
 
@@ -167,9 +176,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Running C8MJ... | Current time = " + LocalDateTime.now());
-
         Emulator emu;
-        
         try {
             emu = new Emulator();
         } catch (IOException e) {
@@ -180,8 +187,21 @@ public class Main {
 
         // System.out.println(emu);
         emu.run();
-
-        // testBytes();
+       
+		// testBytes();
         System.out.println("Exiting C8MJ... | time = " + LocalDateTime.now());
     }
 }
+
+//basic static file server, misbehaves on wsl atm
+/*
+ 
+	private static final InetSocketAddress LOOPBACK_ADDR = new InetSocketAddress(InetAddress.getLoopbackAddress(),
+			8080);
+	private static final Path CWD = Path.of("../client").toAbsolutePath();
+
+
+		HttpServer server = SimpleFileServer.createFileServer(LOOPBACK_ADDR, CWD, OutputLevel.VERBOSE);
+        System.out.println("starting file server at " + CWD);
+        server.start();
+*/
